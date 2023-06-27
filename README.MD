@@ -93,7 +93,7 @@ image link Validation Regex
 Swagger UI
 
 ```yaml
-/jobs/{id}:
+/destinations/{id}:
   parameters:
     - in: path
       name: id
