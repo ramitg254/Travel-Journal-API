@@ -1,18 +1,18 @@
 openapi: 3.0.0
 info:
-  title: Jobs Api
+  title: Travel-Journal API
   contact: {}
   version: '1.0'
 servers:
-- url: https://jobsinfo-api.cyclic.app/api/v1
+- url: https://travel-journal-api-5nu6.onrender.com/api/v1
   variables: {}
 paths:
-  /auth/register:
+  /destinations:
     post:
       tags:
-      - Auth
-      summary: Register User
-      operationId: RegisterUser
+      - Destinations
+      summary: add destination
+      operationId: adddestination
       parameters: []
       requestBody:
         description: ''
@@ -20,67 +20,19 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: '#/components/schemas/RegisterUserRequest'
+              - $ref: '#/components/schemas/adddestinationrequest'
               - example:
-                  name: ramit
-                  email: ramit@gmail.com
-                  password: secret
+                  country: India
+                  name: Himachal
+                  img: https://unsplash.com/photos/qIXdhJz7Rns
+                  rating: 4
+                  description: ''
             example:
-              name: ramit
-              email: ramit@gmail.com
-              password: secret
-        required: true
-      responses:
-        '200':
-          description: ''
-          headers: {}
-      deprecated: false
-  /auth/login:
-    post:
-      tags:
-      - Auth
-      summary: Login User
-      operationId: LoginUser
-      parameters: []
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/LoginUserRequest'
-              - example:
-                  email: ramit@gmail.com
-                  password: secret
-            example:
-              email: ramit@gmail.com
-              password: secret
-        required: true
-      responses:
-        '200':
-          description: ''
-          headers: {}
-      deprecated: false
-  /jobs:
-    post:
-      tags:
-      - Jobs
-      summary: Create Job
-      operationId: CreateJob
-      parameters: []
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/CreateJobRequest'
-              - example:
-                  company: google
-                  position: full-stack developer
-            example:
-              company: google
-              position: full-stack developer
+              country: India
+              name: Himachal
+              img: https://unsplash.com/photos/qIXdhJz7Rns
+              rating: 4
+              description: ''
         required: true
       responses:
         '200':
@@ -91,9 +43,9 @@ paths:
       - bearer: []
     get:
       tags:
-      - Jobs
-      summary: Get All Jobs
-      operationId: GetAllJobs
+      - Destinations
+      summary: get all destinations
+      operationId: getalldestinations
       parameters: []
       responses:
         '200':
@@ -102,19 +54,32 @@ paths:
       deprecated: false
       security:
       - bearer: []
-  /jobs/{id}:
+  /destinations/{id}:
     parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        required: true
-        description: The job ID
+    - in: path
+      name: id
+      schema:
+        type: string
+      required: true
+      description: the destination id
     get:
       tags:
-      - Jobs
-      summary: Get Single Job
-      operationId: GetSingleJob
+      - Destinations
+      summary: get destination
+      operationId: getdestination
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Destinations
+      summary: delete destination
+      operationId: deletedestination
       parameters: []
       responses:
         '200':
@@ -125,9 +90,9 @@ paths:
       - bearer: []
     patch:
       tags:
-      - Jobs
-      summary: Update Job
-      operationId: UpdateJob
+      - Destinations
+      summary: update destination
+      operationId: updatedestination
       parameters: []
       requestBody:
         description: ''
@@ -135,13 +100,17 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: '#/components/schemas/UpdateJobRequest'
+              - $ref: '#/components/schemas/updatedestinationrequest'
               - example:
-                  company: random
-                  position: full-stack developer
+                  name: Himachal
+                  img: https://unsplash.com/photos/XW9LTxbeS9Q
+                  rating: 5
+                  description: ''
             example:
-              company: random
-              position: full-stack developer
+              name: Himachal
+              img: https://unsplash.com/photos/XW9LTxbeS9Q
+              rating: 5
+              description: ''
         required: true
       responses:
         '200':
@@ -150,23 +119,116 @@ paths:
       deprecated: false
       security:
       - bearer: []
-    delete:
+  /auth/register:
+    post:
       tags:
-      - Jobs
-      summary: Delete Job
-      operationId: DeleteJob
+      - Auth
+      summary: register user
+      operationId: registeruser
       parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/registeruserrequest'
+              - example:
+                  name: aks
+                  email: aks@gmail.com
+                  password: secret
+            example:
+              name: aks
+              email: aks@gmail.com
+              password: secret
+        required: true
       responses:
         '200':
           description: ''
           headers: {}
       deprecated: false
-      security:
-      - bearer: []
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: login user
+      operationId: loginuser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginuserrequest'
+              - example:
+                  email: aks@gmail.com
+                  password: secret
+            example:
+              email: aks@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
 components:
   schemas:
-    RegisterUserRequest:
-      title: RegisterUserRequest
+    adddestinationrequest:
+      title: adddestinationrequest
+      required:
+      - country
+      - name
+      - img
+      - rating
+      - description
+      type: object
+      properties:
+        country:
+          type: string
+        name:
+          type: string
+        img:
+          type: string
+        rating:
+          type: integer
+          format: int32
+        description:
+          type: string
+      example:
+        country: India
+        name: Himachal
+        img: https://unsplash.com/photos/qIXdhJz7Rns
+        rating: 4
+        description: ''
+    updatedestinationrequest:
+      title: updatedestinationrequest
+      required:
+      - name
+      - img
+      - rating
+      - description
+      type: object
+      properties:
+        name:
+          type: string
+        img:
+          type: string
+        rating:
+          type: integer
+          format: int32
+        description:
+          type: string
+      example:
+        name: Himachal
+        img: https://unsplash.com/photos/XW9LTxbeS9Q
+        rating: 5
+        description: ''
+    registeruserrequest:
+      title: registeruserrequest
       required:
       - name
       - email
@@ -180,11 +242,11 @@ components:
         password:
           type: string
       example:
-        name: ramit
-        email: ramit@gmail.com
+        name: akshita
+        email: akshita@gmail.com
         password: secret
-    LoginUserRequest:
-      title: LoginUserRequest
+    loginuserrequest:
+      title: loginuserrequest
       required:
       - email
       - password
@@ -195,36 +257,8 @@ components:
         password:
           type: string
       example:
-        email: ramit@gmail.com
+        email: akshita@gmail.com
         password: secret
-    CreateJobRequest:
-      title: CreateJobRequest
-      required:
-      - company
-      - position
-      type: object
-      properties:
-        company:
-          type: string
-        position:
-          type: string
-      example:
-        company: google
-        position: full-stack developer
-    UpdateJobRequest:
-      title: UpdateJobRequest
-      required:
-      - company
-      - position
-      type: object
-      properties:
-        company:
-          type: string
-        position:
-          type: string
-      example:
-        company: random
-        position: full-stack developer
   securitySchemes:
     bearer:
       type: http
@@ -233,5 +267,5 @@ security: []
 tags:
 - name: Auth
   description: ''
-- name: Jobs
+- name: Destinations
   description: ''
