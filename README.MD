@@ -100,5 +100,5 @@ Swagger UI
       schema:
         type: string
       required: true
-      description: the job id
+      description: the destination id
 ```
