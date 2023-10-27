@@ -4,7 +4,7 @@ info:
   contact: {}
   version: '1.0'
 servers:
-- url: https://travel-journal-api-5nu6.onrender.com/api/v1
+- url: https://tender-leggings-colt.cyclic.app/api/v1
   variables: {}
 paths:
   /destinations:
