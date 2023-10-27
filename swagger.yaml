@@ -4,7 +4,7 @@ info:
   contact: {}
   version: '1.0'
 servers:
-- url: https://travel-journal-api.cyclic.app//api/v1
+- url: https://travel-journal-api.cyclic.app/api/v1
   variables: {}
 paths:
   /destinations:
