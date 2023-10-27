@@ -1,5 +1,5 @@
 # Travel-Journal Api
-[https://travel-journal-api.cyclic.app//](https://travel-journal-api.cyclic.app/)
+[https://travel-journal-api.cyclic.app/](https://travel-journal-api.cyclic.app/)
 
 # This is a REST Api which keeps track of your destinations travelled in a particular country along with your experience, the api is equipped with user authentication and one can create, read, update and delete (CRUD) the data  
 
